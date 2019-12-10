@@ -15,6 +15,7 @@ This repository shows how to establish a connection between Arduino and Max and 
 We used [mxj net.udp.recv] to receive the data from the Arduino Board
 
 ## GIT INTRODUCTION
+- [GIT INTRO](https://try.github.io)
 - [GIT QUICK REFERENCE] (https://rogerdudler.github.io/git-guide/)
 - [FORK - GIT UI CLIENT] (https://git-fork.com)
 - [GITHUB DESKTOP - GIT UI CLIENT] (https://desktop.github.com)
