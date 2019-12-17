@@ -70,13 +70,19 @@ void setup() {
 
 void loop() {
 
-  int rand_num = random(10, 100);
-  char cstr[16];
+  int rand_num = 128; //random(10, 100);
+  char cstr[32];
   itoa(rand_num, cstr, 10);
+  
+  char src[] = "Pitch ";
+  char dest[32];
+  strcat(src,cstr); //src = "Pitch 128";
+  
+  //strcpy(dest,cstr);
   
  // send a reply, to the IP address and port that sent us the packet we received
     Udp.beginPacket("10.7.21.191", 10001);
-    Udp.write(cstr);
+    Udp.write(src);
     Udp.endPacket();
 
 /*
