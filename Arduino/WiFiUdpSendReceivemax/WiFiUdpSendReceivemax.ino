@@ -10,6 +10,10 @@
 
 */
 
+const char RECV_IP_ADDRESS[] = "10.7.2.75";
+const int PORT = 10001;
+char ssid[] = "hdpk-student";        // your network SSID (name)
+char pass[] = "drUse300";    // your network password (use for WPA, or use as key for WEP)
 
 #include <SPI.h>
 #include <WiFiNINA.h>
@@ -21,8 +25,6 @@
 int status = WL_IDLE_STATUS;
 #include "arduino_secrets.h"
 ///////please enter your sensitive data in the Secret tab/arduino_secrets.h
-char ssid[] = "hdpk-student";        // your network SSID (name)
-char pass[] = "drUse300";    // your network password (use for WPA, or use as key for WEP)
 int keyIndex = 0;            // your network key Index number (needed only for WEP)
 
 unsigned int localPort = 2390;      // local port to listen on
@@ -84,64 +86,28 @@ void loop() {
     pitch = 180 * atan2(accelX, sqrt(accelY * accelY + accelZ * accelZ)) / PI;
     roll = 180 * atan2(accelY, sqrt(accelX * accelX + accelZ * accelZ)) / PI;
 
-
-    Serial.print(pitch);
-    Serial.print('\t');
-    Serial.println(roll);
-
   }
 
-  int rand_num = 128; //random(10, 100);
-  char cstr[32];
-  //ftoa(rand_num, cstr, 10);
-  //char src[] = "Pitch ";
-  //char dest[32];
-  //strcat(src, cstr); //src = "Pitch 128";
+  sendToMax("pitch ",pitch);
+  sendToMax("roll ",roll);
 
-  char float_string[30];
-  //dtostrf(floatVar, minStringWidthIncDecimalPoint, numVarsAfterDecimal, charBuf);
-  dtostrf(pitch, 2, 2, float_string );
-
-  char keyword[] = "Pitch ";
-  strcat(keyword, float_string);
-  
-
-  Serial.println(keyword);
-
-
-
-  //strcpy(dest,cstr);
-
-  // send a reply, to the IP address and port that sent us the packet we received
-  Udp.beginPacket("10.7.21.191", 10001);
-  Udp.write(keyword);
-  Udp.endPacket();
-
-  /*
-    // if there's data available, read a packet
-    int packetSize = Udp.parsePacket();
-    if (packetSize) {
-      Serial.print("Received packet of size ");
-      Serial.println(packetSize);
-      Serial.print("From ");
-      IPAddress remoteIp = Udp.remoteIP();
-      Serial.print(remoteIp);
-      Serial.print(", port ");
-      Serial.println(Udp.remotePort());
-
-      // read the packet into packetBufffer
-      int len = Udp.read(packetBuffer, 255);
-      if (len > 0) {
-        packetBuffer[len] = 0;
-      }
-      Serial.println("Contents:");
-      Serial.println(packetBuffer);
-
-
-    }
-  */
 }
 
+void sendToMax(char* identifier, float value){
+  
+   char float_string[30];
+  //dtostrf(floatVar, minStringWidthIncDecimalPoint, numVarsAfterDecimal, charBuf);
+  dtostrf(value, 2, 2, float_string );
+  
+  char data[30];
+  strcpy(data,identifier);
+  strcat(data, float_string);
+
+  // send a reply, to the IP address and port that sent us the packet we received
+  Udp.beginPacket(RECV_IP_ADDRESS, PORT);
+  Udp.write(data);
+  Udp.endPacket();
+}
 
 void printWifiStatus() {
   // print the SSID of the network you're attached to:
