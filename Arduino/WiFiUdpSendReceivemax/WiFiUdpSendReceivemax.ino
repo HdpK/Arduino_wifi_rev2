@@ -12,8 +12,8 @@
 
 const char RECV_IP_ADDRESS[] = "10.7.2.75";
 const int PORT = 10001;
-char ssid[] = "hdpk-student";        // your network SSID (name)
-char pass[] = "drUse300";    // your network password (use for WPA, or use as key for WEP)
+char ssid[] = "hdpk-student";        // your network SSID (name) 
+char pass[] = "drUse300";    // your network password (use for WPA, or use as key for WEP) 
 
 #include <SPI.h>
 #include <WiFiNINA.h>
@@ -76,6 +76,8 @@ void setup() {
   Udp.begin(localPort);
 }
 
+
+
 void loop() {
 
   float accelX, accelY, accelZ, pitch, roll;
@@ -87,6 +89,12 @@ void loop() {
     roll = 180 * atan2(accelY, sqrt(accelX * accelX + accelZ * accelZ)) / PI;
 
   }
+
+  int pot00_value = analogRead(0);
+  int pot01_value = analogRead(1);
+  sendToMax("Pot00 ", pot00_value);
+  sendToMax("Pot01 ", pot01_value);
+  
 
   sendToMax("pitch ",pitch);
   sendToMax("roll ",roll);
