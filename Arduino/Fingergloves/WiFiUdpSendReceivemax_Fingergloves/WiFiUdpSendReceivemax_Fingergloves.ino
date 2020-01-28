@@ -94,51 +94,19 @@ void loop() {
 
   }
 // 3x Pot, 2x Button,1x Switch Button, 1x Ultrasonic, 1x Flex
-  int pot00_value = analogRead(A0);
-  int pot01_value = analogRead(A1);
-  int pot02_value = analogRead(A2);
-  int button00_value = digitalRead(9);
-  int button01_value = digitalRead(8);
-  int flexpin00_value = analogRead(A5);
-  int switch00_value = digitalRead(6);
+ 
+   int flexpin00_value = analogRead(A0);
+   int flexpin01_value = analogRead(A1);
+   int flexpin02_value = analogRead(A2);
+   int flexpin03_value = analogRead(A3);
   
-  //int ultra00_value = analogRead(7);
-
-  // establish variables for duration of the ping, and the distance result
-  // in inches and centimeters:
-  long duration, inches, cm;
-
-  // The PING))) is triggered by a HIGH pulse of 2 or more microseconds.
-  // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
-  pinMode(pingPin, OUTPUT);
-  digitalWrite(pingPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(pingPin, HIGH);
-  delayMicroseconds(5);
-  digitalWrite(pingPin, LOW);
-
-// The same pin is used to read the signal from the PING))): a HIGH pulse
-  // whose duration is the time (in microseconds) from the sending of the ping
-  // to the reception of its echo off of an object.
-  pinMode(pingPin, INPUT);
-  duration = pulseIn(pingPin, HIGH);
-
-  // convert the time into a distance
-    cm = microsecondsToCentimeters(duration);
-
-  
-
-
-  sendToMax("Pot00 ", pot00_value);
-  sendToMax("Pot01 ", pot01_value);
-  sendToMax("Pot02 ", pot02_value);
-  sendToMax("Button00 ", button00_value);
-  sendToMax("Button01 ", button01_value);
+ 
+    
   sendToMax("flexpin00 ", flexpin00_value);
-  sendToMax("switch00 ", switch00_value);
-  
-  sendToMax("ultra ", cm);
-  
+  sendToMax("flexpin01 ", flexpin01_value);
+  sendToMax("flexpin02 ", flexpin02_value);
+  sendToMax("flexpin03 ", flexpin03_value);
+
 
 
   sendToMax("pitch ",pitch);
@@ -147,13 +115,6 @@ void loop() {
 
 }
 
-
-long microsecondsToCentimeters(long microseconds) {
-  // The speed of sound is 340 m/s or 29 microseconds per centimeter.
-  // The ping travels out and back, so to find the distance of the object we
-  // take half of the distance travelled.
-  return microseconds / 29 / 2;
-}
 
 
 
