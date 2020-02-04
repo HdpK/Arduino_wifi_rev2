@@ -10,10 +10,10 @@
 
 */
 
-const char RECV_IP_ADDRESS[] = "10.7.2.75";
+const char RECV_IP_ADDRESS[] = "192.168.0.224";
 const int PORT = 10001;
-char ssid[] = "hdpk-student";        // your network SSID (name) hdpk-student        / Soundsgood01
-char pass[] = "drUse300";    // your network password (use for WPA, or use as key for WEP) drUse300
+char ssid[] = "Soundsgood01";        // your network SSID (name) hdpk-student        / Soundsgood01       hdpk-student
+char pass[] = "ApolloM32";    // your network password (use for WPA, or use as key for WEP) drUse300         
 
 #include <SPI.h>
 #include <WiFiNINA.h>
